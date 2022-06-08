@@ -7,8 +7,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/' do
-    'Hello World this is naz'
+    'Bookmark Manager'
   end
+
+  get '/bookmarks' do
+    Bookmark Manager = ["https://www.google.com/"]
+  end
+
 
   run! if app_file == $0
 end
