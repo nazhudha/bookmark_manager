@@ -1,9 +1,16 @@
-describe '.all' do 
-it "returns a list of bookmarks using Bookmark.all" do
-  bookmark = Bookmark.all
+describe '.all' do
+  it 'returns a list of bookmarks' do
+    connection = PG.connect(dbname: 'bookmark_manager_test')
 
-  expect(bookmark).to include "http://www.makersacademy.com"
-  expect(bookmark).to include "http://www.destroyallsoftware.com"
-  expect(bookmark).to include "http://www.google.com"
-end
+    # Add the test data
+    connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.makersacademy.com');")
+    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
+    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.google.com');")
+
+    bookmarks = Bookmark.all
+
+    expect(bookmarks).to include('http://www.makersacademy.com')
+    expect(bookmarks).to include('http://www.destroyallsoftware.com')
+    expect(bookmarks).to include('http://www.google.com')
+  end
 end
